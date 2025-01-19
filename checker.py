@@ -30,7 +30,7 @@ def crack_password(target_password, password_list):
     return None
 
 def main():
-    # Set the target password (for demonstration purposes)
+    # Set the target password
     target_password = input("Enter the password you want to check: ")
 
     # Paths to the password list files
