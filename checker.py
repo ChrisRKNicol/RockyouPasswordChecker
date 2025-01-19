@@ -1,18 +1,18 @@
-def load_password_list(file_path):
+def load_password_list(file_paths):
     """
-    Load a list of passwords from a text file.
+    Load a list of passwords from multiple text files.
     """
-    try:
-        # Specify the encoding to handle different character encodings
-        with open(file_path, 'r', encoding='latin-1') as file:
-            passwords = file.read().splitlines()
-        return passwords
-    except FileNotFoundError:
-        print("Password list file not found!")
-        return []
-    except UnicodeDecodeError as e:
-        print(f"Error decoding file: {e}")
-        return []
+    passwords = []
+    for file_path in file_paths:
+        try:
+            # Specify the encoding to handle different character encodings
+            with open(file_path, 'r', encoding='latin-1') as file:
+                passwords.extend(file.read().splitlines())
+        except FileNotFoundError:
+            print(f"Password list file {file_path} not found!")
+        except UnicodeDecodeError as e:
+            print(f"Error decoding file {file_path}: {e}")
+    return passwords
 
 def crack_password(target_password, password_list):
     """
@@ -33,11 +33,11 @@ def main():
     # Set the target password (for demonstration purposes)
     target_password = input("Enter the password you want to check: ")
 
-    # Path to the password list file
-    password_list_file = "rockyou.txt"
+    # Paths to the password list files
+    password_list_files = ["rockyou1.txt", "rockyou2.txt"]
 
     # Load the password list
-    password_list = load_password_list(password_list_file)
+    password_list = load_password_list(password_list_files)
 
     if not password_list:
         print("No passwords to test.")
